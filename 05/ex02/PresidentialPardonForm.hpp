@@ -2,16 +2,17 @@
 #include "Bureaucrat.hpp"
 #include <fstream>
 
-class ShrubberyCreationForm : public AForm {
+class PresidentialPardonForm : public AForm {
     public:
-        ShrubberyCreationForm(std::string target);
-        ~ShrubberyCreationForm();
-        ShrubberyCreationForm(const ShrubberyCreationForm &src);
-        ShrubberyCreationForm &operator=(const ShrubberyCreationForm &src);
+        PresidentialPardonForm(std::string target);
+        ~PresidentialPardonForm();
+        PresidentialPardonForm(const PresidentialPardonForm &src);
+        PresidentialPardonForm &operator=(const PresidentialPardonForm &src);
         void execute(Bureaucrat const &executor) const;
         std::string getTarget() const;
     private:
         std::string target;
 };
 
-std::ostream &operator<<(std::ostream &out, const ShrubberyCreationForm &shrubberyCreationForm);
+std::ostream &operator<<(std::ostream &out, const PresidentialPardonForm &presidentialPardonForm);
+
