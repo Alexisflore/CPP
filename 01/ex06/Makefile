@@ -5,27 +5,43 @@
 #                                                     +:+ +:+         +:+      #
 #    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/21 15:36:23 by alfloren          #+#    #+#              #
-#    Updated: 2024/02/28 10:48:35 by macbookpro       ###   ########.fr        #
+#    Created: 2024/03/15 14:43:07 by macbookpro        #+#    #+#              #
+#    Updated: 2024/03/23 17:00:43 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
-TARGET = megaphone
-OBJS = megaphone.o
+NAME := harlFilter
 
-all: $(TARGET)
+INCLUDES := -I $(CURDIR)
 
-$(TARGET): megaphone.cpp
-	$(CC) $(CFLAGS) -o $@ $^
+SRCS := Harl.cpp
+SRCS += main.cpp
+
+OBJS := $(SRCS:.cpp=.o)
+
+CC := c++
+
+CFLAGS := -Wall
+CFLAGS += -Wextra
+CFLAGS += -Werror
+CFLAGS += -std=c++98
+
+RM := rm -f
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(INCLUDES)
+
+all: $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	$(RM) $(OBJS)
 
 fclean: clean
-	rm -f $(TARGET)
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: re fclean clean all

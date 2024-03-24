@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/macbookpro/Documents/42/CPP/05/ex02",
+      "program": "/Users/macbookpro/Documents/42/CPP/05/ex02/build/Debug/outDebug"
+    }
+  ]
+}

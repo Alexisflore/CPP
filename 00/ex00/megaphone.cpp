@@ -3,32 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfloren <alfloren@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:40:55 by alfloren          #+#    #+#             */
-/*   Updated: 2024/02/21 16:29:35 by alfloren         ###   ########.fr       */
+/*   Updated: 2024/02/27 12:03:09 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-
-// Function that find the last character in a string that is not a whitespace
-int findLastNonWhitespaceCharacter(const std::string& str) {
-    unsigned long i = str.length() - 1;
-    while (i >= 0 && std::isspace(str[i])) {
-        i--;
-    }
-    return i;
-}
-
-// Function that find the first character in a string that is not a whitespace
-int findFirstNonWhitespaceCharacter(const std::string& str) {
-    unsigned long i = 0;
-    while (i < str.length() && std::isspace(str[i])) {
-        i++;
-    }
-    return i;
-}
+#include <string>
+#include <cctype>
 
 int main(int argc, char* argv[]) {
     // Check if an argument is provided
@@ -36,20 +20,12 @@ int main(int argc, char* argv[]) {
         std::cout << "*LOUD AND UNBEARABLE FEEDBACK NOISE" << std::endl;
         return 0;
     }
-    for (int i = 1; i < argc; i++) {
-        std::string inputString = argv[i];
-        if (inputString.length() == 0) {
-            continue;
-        }
-        unsigned long last = findLastNonWhitespaceCharacter(inputString);
-        unsigned long first = findFirstNonWhitespaceCharacter(inputString);
-        for (unsigned long i = first; i <= last; i++) {
-            char& c = inputString[i];
-            c = std::toupper(c);
-            std::cout << c;
-        }
-        if (i != argc - 1) {
-            std::cout << " ";
+    unsigned long i = 0;
+    while (argv[++i]) {
+        std::string arg = argv[i];
+        for (unsigned long j = 0; j < arg.length(); j++) {
+            char c = arg[j];
+            std::cout << (char)std::toupper(c);
         }
     }
     std::cout << std::endl;
