@@ -30,3 +30,16 @@ void PresidentialPardonForm::execute(Bureaucrat const &executor) const {
     }
     std::cout << this->target << " has been pardoned by Zafod Beeblebrox" << std::endl;
 }
+
+std::string PresidentialPardonForm::getTarget() const {
+    return this->target;
+}
+
+std::ostream &operator<<(std::ostream &out, const PresidentialPardonForm &presidentialPardonForm) {
+    out << "PresidentialPardonForm " << presidentialPardonForm.getName() << " is ";
+    if (presidentialPardonForm.isSigned() == false) {
+        out << "not ";
+    }
+    out << "signed and requires grade " << presidentialPardonForm.getSignGrade() << " to sign and grade " << presidentialPardonForm.getExecGrade() << " to execute." << std::endl;
+    return out;
+}

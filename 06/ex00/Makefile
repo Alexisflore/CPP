@@ -1,7 +1,7 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-TARGET = swap
-OBJS = main.cpp
+TARGET = convert
+OBJS = ScalarConverter.cpp main.cpp
 
 all: $(TARGET)
 

@@ -7,7 +7,6 @@
 
 class Bureaucrat;
 
-//abstract class
 class AForm {
     public:
         AForm(std::string name, int signGrade, int execGrade);
@@ -18,8 +17,9 @@ class AForm {
         bool isSigned() const;
         int getSignGrade() const;
         int getExecGrade() const;
-        void beSigned(Bureaucrat &bureaucrat);
+        void beSigned(Bureaucrat const &bureaucrat);
         virtual void execute(Bureaucrat const &executor) const = 0;
+        void executeForm(Bureaucrat const &executor) const;
         class GradeTooHighException;
         class GradeTooLowException;
         class AFormAlreadySignedException;

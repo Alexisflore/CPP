@@ -42,6 +42,22 @@ void AForm::beSigned(Bureaucrat const &bureaucrat) {
     this->sign = true;
 }
 
+AForm &AForm::operator=(const AForm &src) {
+    if (this != &src) {
+        this->sign = src.sign;
+    }
+    return *this;
+}
+
+void AForm::executeForm(Bureaucrat const &executor) const {
+    try {
+        this->execute(executor);
+        std::cout << executor.getName() << " executed " << this->getName() << std::endl;
+    } catch (std::exception &e) {
+        std::cout << executor.getName() << " cannot execute " << this->getName() << " because " << e.what() << std::endl;
+    }
+}
+
 std::ostream &operator<<(std::ostream &out, const AForm &Aform) {
     out << Aform.getName() << ", Aform sign grade " << Aform.getSignGrade() << ", Aform exec grade " << Aform.getExecGrade() << ", Aform is signed: " << Aform.isSigned() << std::endl;
     return out;

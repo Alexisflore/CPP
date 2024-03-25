@@ -1,7 +1,7 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-TARGET = swap
-OBJS = main.cpp
+TARGET = base
+OBJS = main.cpp Base.cpp A.cpp B.cpp C.cpp
 
 all: $(TARGET)
 
