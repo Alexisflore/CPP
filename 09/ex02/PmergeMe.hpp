@@ -30,6 +30,8 @@ class PmergeMe {
         void SortList();
         void displayVector();
         void displayList();
+        bool isDuplicate(std::vector<int> &arr);
+        bool isDuplicate(std::list<int> &arr);
         double _timeVector;
         double _timeList;
         std::string _str;

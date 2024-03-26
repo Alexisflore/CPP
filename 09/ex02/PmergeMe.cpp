@@ -13,8 +13,13 @@ PmergeMe::PmergeMe(int argc, char **argv)
             _str += " ";
         _str += argv[i];
     }
-    _arrVector = argsToVector(_str);
-    _arrList = argsToList(_str);
+    try {
+        _arrVector = argsToVector(_str);
+        _arrList = argsToList(_str);
+    } catch (std::exception &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        exit(1);
+    }
     SortVector();
     SortList();
     display();
@@ -57,6 +62,8 @@ std::list<int> PmergeMe::argsToList(std::string str)
             throw std::invalid_argument("Invalid number");
         }
     }
+    if (isDuplicate(list))
+        throw std::invalid_argument("Duplicate number");
     return list;
 }
 
@@ -78,6 +85,8 @@ std::vector<int> PmergeMe::argsToVector(std::string str)
             throw std::invalid_argument("Invalid number");
         }
     }
+    if (isDuplicate(vector))
+        throw std::invalid_argument("Duplicate number");
     return vector;
 }
 
@@ -264,5 +273,28 @@ void PmergeMe::SortList()
     // _timeList = end - start;
 }
 
+bool PmergeMe::isDuplicate(std::vector<int> &arr)
+{
+    for (size_t i = 0; i < arr.size(); i++)
+    {
+        for (size_t j = i + 1; j < arr.size(); j++)
+        {
+            if (arr[i] == arr[j])
+                return true;
+        }
+    }
+    return false;
+}
 
-
+bool PmergeMe::isDuplicate(std::list<int> &arr)
+{
+    for (std::list<int>::iterator it = arr.begin(); it != arr.end(); it++)
+    {
+        for (std::list<int>::iterator it2 = it; it2 != arr.end(); it2++)
+        {
+            if (it != it2 && *it == *it2)
+                return true;
+        }
+    }
+    return false;
+}
