@@ -57,7 +57,6 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "ostream": "cpp",
     "__bit_reference": "cpp",
     "__bits": "cpp",
     "__config": "cpp",
@@ -91,11 +90,8 @@
     "ctime": "cpp",
     "cwchar": "cpp",
     "cwctype": "cpp",
-    "deque": "cpp",
     "exception": "cpp",
-    "fstream": "cpp",
     "initializer_list": "cpp",
-    "iomanip": "cpp",
     "ios": "cpp",
     "iosfwd": "cpp",
     "iostream": "cpp",
@@ -106,9 +102,9 @@
     "mutex": "cpp",
     "new": "cpp",
     "optional": "cpp",
+    "ostream": "cpp",
     "ratio": "cpp",
     "sstream": "cpp",
-    "stack": "cpp",
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "string": "cpp",
@@ -120,17 +116,6 @@
     "unordered_map": "cpp",
     "variant": "cpp",
     "vector": "cpp",
-    "algorithm": "cpp",
-    "__tree": "cpp",
-    "list": "cpp",
-    "map": "cpp",
-    "numeric": "cpp",
-    "queue": "cpp",
-    "random": "cpp",
-    "set": "cpp"
-  },
-  "C_Cpp.errorSquiggles": "disabled",
-  "lldb.displayFormat": "auto",
-  "lldb.dereferencePointers": true,
-  "lldb.consoleMode": "commands"
+    "algorithm": "cpp"
+  }
 }

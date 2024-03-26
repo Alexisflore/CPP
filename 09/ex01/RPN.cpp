@@ -27,31 +27,31 @@ void RPN::_calculate()
             if (_array.size() < 2)
                 throw std::invalid_argument("Invalid expression");
             //delete the two last elements of the array and store them in int1 and int2
-            int1 = _array.back();
-            _array.pop_back();
-            int2 = _array.back();
-            _array.pop_back();
+            int1 = _array.top();
+            _array.pop();
+            int2 = _array.top();
+            _array.pop();
             if (token == "+")
             {
-                _array.push_back(int2 + int1);
+                _array.push(int2 + int1);
             }
             else if (token == "-")
             {
-                _array.push_back(int2 - int1);
+                _array.push(int2 - int1);
             }
             else if (token == "*")
             {
-                _array.push_back(int2 * int1);
+                _array.push(int2 * int1);
             }
             else if (token == "/")
             {
-                _array.push_back(int2 / int1);
+                _array.push(int2 / int1);
             }
         }
         else
         {
             try {
-                _array.push_back(std::stoi(token));
+                _array.push(std::stoi(token));
             } catch (std::exception &e) {
                 throw std::invalid_argument("Invalid number");
             }
@@ -59,7 +59,7 @@ void RPN::_calculate()
     }
     if (_array.size() != 1)
         throw std::invalid_argument("Invalid expression");
-    _result = _array.back();
+    _result = _array.top();
 }
 
 void RPN::display()

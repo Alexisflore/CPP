@@ -2,8 +2,7 @@
 #include <string>
 #include <iostream>
 #include <stdexcept>
-#include <array>
-#include <vector>
+#include <stack>
 #include <sstream>
 
 class RPN {
@@ -13,7 +12,8 @@ class RPN {
         ~RPN();
         void display();
     private:
-        std::vector<int> _array;
+        std::stack<int> _array;
         std::string _str;
         void _calculate();
+        int _result;
 };

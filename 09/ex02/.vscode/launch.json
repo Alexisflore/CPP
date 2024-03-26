@@ -7,7 +7,7 @@
       "request": "launch",
       "args": [],
       "cwd": "/Users/macbookpro/Documents/42/CPP/09/ex02",
-      "program": "/Users/macbookpro/Documents/42/CPP/09/ex02/PmergeMe",
+      "program": "/Users/macbookpro/Documents/42/CPP/09/ex02/build/Debug/outDebug"
     }
   ]
 }
