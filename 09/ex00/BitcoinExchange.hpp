@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <cstdlib>
 
 class BitcoinExchange {
     public:
@@ -19,5 +20,6 @@ class BitcoinExchange {
         void filetoMap(std::ifstream &file);
         double getRate(const std::string &date) const;
         double convert(const std::string &date, double amount) const;
-        bool isCorrectFormatDate(const std::string &date) const;
+        bool isCorrectFormatDate(std::string &date) const;
+		bool isCorrectAmount(std::string &amount) const;
 };

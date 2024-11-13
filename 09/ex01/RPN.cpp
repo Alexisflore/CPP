@@ -16,9 +16,9 @@ RPN::~RPN()
 
 void RPN::_calculate()
 {
-    int int1 = 0;
-    int int2 = 0;
-    std::istringstream iss(_str); 
+    long int1 = 0;
+    long int2 = 0;
+    std::istringstream iss(_str);
     std::string token;
     while (std::getline(iss, token, ' '))
     {
@@ -50,11 +50,23 @@ void RPN::_calculate()
         }
         else
         {
-            try {
-                _array.push(std::stoi(token));
-            } catch (std::exception &e) {
-                throw std::invalid_argument("Invalid number");
-            }
+			if (token[0] != '-' && !std::isdigit(token[0]) && token[0] != '+')
+			{
+				throw std::invalid_argument("Invalid number");
+			}
+			for (size_t i = 1; i < token.size(); i++)
+			{
+				if (!std::isdigit(token[i]))
+					throw std::invalid_argument("Invalid number");
+			}
+			long long value;
+			//check overflow
+			std::istringstream(token) >> value;
+			if (value > INT_MAX || value < INT_MIN)
+			{
+				throw std::overflow_error("Integer overflow");
+			}
+			_array.push(value);
         }
     }
     if (_array.size() != 1)

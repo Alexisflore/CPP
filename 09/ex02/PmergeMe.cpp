@@ -14,8 +14,19 @@ PmergeMe::PmergeMe(int argc, char **argv)
         _str += argv[i];
     }
     try {
-        _arrVector = argsToVector(_str);
-        _arrList = argsToList(_str);
+			timeval start, end;
+			gettimeofday(&start, NULL);
+			_arrList = argsToList(_str);
+			gettimeofday(&end, NULL);
+			long seconds = end.tv_sec - start.tv_sec;
+			long microseconds = end.tv_usec - start.tv_usec;
+			_timeList += seconds * 1000000.0 + microseconds;
+			gettimeofday(&start, NULL);
+			_arrVector = argsToVector(_str);
+			gettimeofday(&end, NULL);
+			seconds = end.tv_sec - start.tv_sec;
+			microseconds = end.tv_usec - start.tv_usec;
+			_timeVector += seconds * 1000000.0 + microseconds;
     } catch (std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         exit(1);
@@ -36,13 +47,17 @@ PmergeMe::~PmergeMe()
 
 void PmergeMe::display()
 {
-    std::cout << "Before" << std::endl;
-    std::cout << _str << std::endl;
-    std::cout << "After" << std::endl;
+    std::cout << "Before: ";
+    // if (_str.size() > 15)
+	// 	std::cout << _str.substr(0, 15) << "[...]" << std::endl;
+	// else
+	// 	std::cout << _str << std::endl;
+	std::cout << _str << std::endl;
+    std::cout << "After: ";
     displayVector();
-    displayList();
-    std::cout << "Time to process a range of " << _arrVector.size() << " elements " << "with std::vector<int>: " << _timeVector << "ms" << std::endl;
-    std::cout << "Time to process a range of " << _arrList.size() << " elements " << "with std::list<int>: " << _timeList << "ms" << std::endl;
+    // displayList();
+    std::cout << "Time to process a range of " << _arrVector.size() << " elements " << "with std::vector<int>: " << std::fixed << std::setprecision(5) << _timeVector << "us" << std::endl;
+    std::cout << "Time to process a range of " << _arrList.size() << " elements " << "with std::list<int>: " << std::fixed << std::setprecision(5) << _timeList << "us" << std::endl;
 }
 
 std::list<int> PmergeMe::argsToList(std::string str)
@@ -54,7 +69,7 @@ std::list<int> PmergeMe::argsToList(std::string str)
     while (std::getline(iss, token, ' '))
     {
         try {
-            nbr = std::stoi(token);
+            nbr = atoi(token.c_str());
             if (nbr < 0)
                 throw std::invalid_argument("Negative number");
             list.push_back(nbr);
@@ -80,7 +95,7 @@ std::vector<int> PmergeMe::argsToVector(std::string str)
                 if (token[k] < '0' || token[k] > '9')
                     throw std::invalid_argument("Invalid number");
             }
-            vector.push_back(std::stoi(token));
+            vector.push_back(atoi(token.c_str()));
         } catch (std::exception &e) {
             throw std::invalid_argument("Invalid number");
         }
@@ -122,11 +137,13 @@ void PmergeMe::InsertionSort(std::list<int> &arr)
 
 void PmergeMe::MergeInsertionSort(std::vector<int> &arr)
 {
-    if (arr.size() <= 10)
-    {
-        InsertionSort(arr);
-        return;
-    }
+    // if (arr.size() <= 10)
+    // {
+    //     InsertionSort(arr);
+    //     return;
+    // }
+	if (arr.size() == 1)
+		return;
     std::vector<int> left;
     std::vector<int> right;
     int middle = arr.size() / 2;
@@ -170,11 +187,8 @@ std::vector<int> PmergeMe::Merge(std::vector<int> &left, std::vector<int> &right
 
 void PmergeMe::MergeInsertionSort(std::list<int> &arr)
 {
-    if (arr.size() <= 10)
-    {
-        InsertionSort(arr);
+    if (arr.size() == 1)
         return;
-    }
     std::list<int> left;
     std::list<int> right;
     int middle = arr.size() / 2;
@@ -223,54 +237,56 @@ std::list<int> PmergeMe::Merge(std::list<int> &left, std::list<int> &right)
 
 void PmergeMe::displayVector()
 {
+	std::stringstream ss;
     std::string str;
     for (size_t i = 0; i < _arrVector.size(); i++)
     {
         if (i != 0)
-            str += " ";
-        str += std::to_string(_arrVector[i]);
+            ss << " ";
+        ss << _arrVector[i];
     }
-    std::cout << str << std::endl;
+	str = ss.str();
+	// if (str.size() > 12)
+	// 	std::cout << str.substr(0, 15) << "[...]" << std::endl;
+	// else
+    // 	std::cout << str << std::endl;
+	std::cout << str << std::endl;
 }
 void PmergeMe::displayList()
 {
     std::string str;
+	std::stringstream ss;
     for (std::list<int>::iterator it = _arrList.begin(); it != _arrList.end(); it++)
     {
         if (it != _arrList.begin())
-            str += " ";
-        str += std::to_string(*it);
-    }
+			ss << " ";
+		ss << *it;
+	}
+	str = ss.str();
     std::cout << str << std::endl;
 }
 void PmergeMe::SortVector()
 {
-    std::clock_t start = std::clock();
-
-    // Code you want to time goes here
-
+	timeval start, end;
+	gettimeofday(&start, NULL);
     MergeInsertionSort(_arrVector);
-    std::clock_t end = std::clock();
-    _timeVector = 1000.0 * (end - start) / CLOCKS_PER_SEC;
-
-    // std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-    // std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
-    // _timeVector = end - start;
+	gettimeofday(&end, NULL);
+	long seconds = end.tv_sec - start.tv_sec;
+	long microseconds = end.tv_usec - start.tv_usec;
+	_timeVector += seconds * 1000000.0 + microseconds;
 }
 
 void PmergeMe::SortList()
 {
-    std::clock_t start = std::clock();
+	timeval start, end;
+	gettimeofday(&start, NULL);
 
-    // Code you want to time goes here
+	MergeInsertionSort(_arrList);
 
-    MergeInsertionSort(_arrList);
-    std::clock_t end = std::clock();
-    _timeList = 1000.0 * (end - start) / CLOCKS_PER_SEC;
-
-    // std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-    // std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
-    // _timeList = end - start;
+	gettimeofday(&end, NULL);
+	long seconds = end.tv_sec - start.tv_sec;
+	long microseconds = end.tv_usec - start.tv_usec;
+	_timeList += seconds * 1000000.0 + microseconds;
 }
 
 bool PmergeMe::isDuplicate(std::vector<int> &arr)

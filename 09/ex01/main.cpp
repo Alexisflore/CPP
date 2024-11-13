@@ -7,7 +7,13 @@ int main(int argc, char **argv)
         std::cerr << "Usage: ./rpn <string>" << std::endl;
         return 1;
     }
-    RPN rpn(argv[1]);
-    rpn.display();
+	try {
+		RPN rpn(argv[1]);
+		rpn.display();
+	}
+	catch (std::exception &e) {
+		std::cerr << e.what() << std::endl;
+		return 1;
+	}
     return 0;
 }
